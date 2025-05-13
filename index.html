@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>小朋友墬樓機</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #000033;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+            flex-direction: column;
+        }
+        canvas {
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+        /* 移動裝置控制按鈕樣式 */
+        #mobileControls {
+            margin-top: 20px;
+            display: flex;
+            gap: 60px;
+        }
+        #mobileControls button {
+            font-size: 60px;
+            padding: 30px 60px;
+            border-radius: 20px;
+            border: none;
+            background-color: #00ffff;
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            cursor: pointer;
+        }
+        /* 名字輸入框樣式 (會由 JavaScript 動態顯示和隱藏) */
+        input[type="text"] {
+            margin-top: 20px; /* 給輸入框一點空間 */
+            z-index: 100; /* 確保輸入框在畫面上方 */
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+      // 初始化 Supabase 客戶端
+      // 請確認這裡的 URL 和 Anon Key 是您自己的 Supabase 專案資訊
+      // 這些資訊是您之前提供的，已經在這裡填寫好了。
+      window.supabase = supabase.createClient(
+        'https://vlsrsdtcggxjxrlotrwk.supabase.co', // 您的 Supabase Project URL
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsc3JzZHRjZ2d4anhybG90cndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwNjAxODUsImV4cCI6MjA2MjYzNjE4NX0.Jl2VJjd_s_OA59GHief60WxZcwaeVjBJDWdbyVkosCg' // 您的 Supabase Anon Public Key
+      );
+    </script>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="1400"></canvas>
+    <div id="mobileControls">
+        <button id="btnLeft">←</button>
+        <button id="btnJump">␣</button>
+        <button id="btnRight">→</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
