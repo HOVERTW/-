@@ -390,54 +390,12 @@ class Game {
 
     // --- Supabase 整合功能 ---
     async submitScore() {
-    const name = this.nameInput.value.trim();
-    if (!name) {
-        alert('請輸入你的名字！');
-        this.nameInput.focus();
-        return;
-    }
-
-    if (!window.supabase) {
-        alert('Supabase 未初始化，無法儲存分數！');
-        return;
-    }
-
-    this.nameInput.disabled = true;
-
-    try {
-        await this.fetchHighScores(); // 先抓最新排行榜
-        const lowestScore = this.highScores.length >= 10 ? this.highScores[9].score : -Infinity;
-
-        if (this.score <= lowestScore && this.highScores.length >= 10) {
-            alert("抱歉！你太早死了，下次加油才能進排名！");
-            this.nameInput.disabled = false;
+        const name = this.nameInput.value.trim();
+        if (!name) {
+            alert('請輸入你的名字！');
+            this.nameInput.focus();
             return;
         }
-
-        const { data, error } = await window.supabase
-            .from('跳樓機')
-            .insert([{ name: name, score: this.score }])
-            .select();
-
-        if (error) {
-            console.error('上傳分數失敗:', error.message);
-            alert('上傳分數失敗！
-' + error.message);
-        } else {
-            console.log('分數上傳成功:', data);
-            alert('分數已儲存！');
-            this.nameInput.style.display = 'none';
-            this.nameInput.value = '';
-            await this.fetchHighScores();
-        }
-    } catch (error) {
-        console.error('上傳分數時發生錯誤:', error);
-        alert('上傳分數時發生未知錯誤！');
-    } finally {
-        this.nameInput.disabled = false;
-        if (this.gameOver) this.draw();
-    }
-}
         if (!window.supabase) {
             alert('Supabase 未初始化，無法儲存分數！');
             return;
