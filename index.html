@@ -14,6 +14,7 @@
             align-items: center;
             min-height: 70vh;
             flex-direction: column;
+            font-family: 'Press Start 2P', cursive; /* Applying font to body for consistency */
         }
         canvas {
             border: 2px solid #00ffff;
@@ -39,17 +40,41 @@
         input[type="text"] {
             margin-top: 20px; /* 給輸入框一點空間 */
             z-index: 100; /* 確保輸入框在畫面上方 */
+            font-family: 'Press Start 2P', cursive; /* Consistent font */
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #00ffff;
+            background-color: #000033;
+            color: #00ffff;
+            text-align: center;
+        }
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: #00ffff80;
+            opacity: 1; /* Firefox */
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
       // 初始化 Supabase 客戶端
-      // 請確認這裡的 URL 和 Anon Key 是您自己的 Supabase 專案資訊
-      // 這些資訊是您之前提供的，已經在這裡填寫好了。
-      window.supabase = supabase.createClient(
-        'https://vlsrsdtcggxjxrlotrwk.supabase.co', // 您的 Supabase Project URL
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsc3JzZHRjZ2d4anhybG90cndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwNjAxODUsImV4cCI6MjA2MjYzNjE4NX0.Jl2VJjd_s_OA59GHief60WxZcwaeVjBJDWdbyVkosCg' // 您的 Supabase Anon Public Key
-      );
+      const SUPABASE_URL = 'https://vlsrsdtcggxjxrlotrwk.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsc3JzZHRjZ2d4anhybG90cndrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwNjAxODUsImV4cCI6MjA2MjYzNjE4NX0.Jl2VJjd_s_OA59GHief60WxZcwaeVjBJDWdbyVkosCg';
+
+      // 從全域的 supabase 物件中解構出 createClient 方法 (Supabase v2 的方式)
+      const { createClient } = supabase;
+
+      // 建立 Supabase client 並將其指派給全域變數 supabase，以便 game.js 可以直接使用
+      // 如果您不想覆寫全域的 supabase 物件，可以命名為其他變數，例如:
+      // window.myGameSupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      // 然後在 game.js 中使用 myGameSupabaseClient。
+      // 為了與您 game.js 中現有的 supabase 變數名保持一致，我們這裡直接賦值給 window.supabase。
+      window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // 確認 supabase client 是否成功初始化 (可選，用於偵錯)
+      if (window.supabase) {
+          console.log('Supabase Client 初始化成功！');
+      } else {
+          console.error('Supabase Client 初始化失敗！');
+      }
     </script>
 </head>
 <body>
